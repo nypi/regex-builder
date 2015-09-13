@@ -1,10 +1,27 @@
-# Java Regular Expressions Builder
+# Java Regular Expression Builder
 
 Motivation behind this tool was keeping mind safe when implementing ABNF rules (from various RFC docs) for validating/parsing purposes in Java. It aims to allow to translate rules into Java expressions in a relaxed mode and obtain a valid regular expression pattern as a result.
 
 But I believe it can be used in some simple cases when you don't want to bring regex syntax into your Java code.
 
-## Usage Sample
+Available via the [JitPack build](https://jitpack.io/#nypi/regex-builder/-8a758d59a5-1).
+
+```
+<repository>
+	<id>jitpack.io</id>
+	<url>https://jitpack.io</url>
+</repository>
+```
+
+```
+<dependency>
+	<groupId>com.github.nypi</groupId>
+	<artifactId>regex-builder</artifactId>
+	<version>-8a758d59a5-1</version>
+</dependency>
+```
+
+## Usage Example
 
 For example, below is the rule set of the IPv6 mailbox address literal as defined in the [RFC 5321](https://tools.ietf.org/html/rfc5321).
 
