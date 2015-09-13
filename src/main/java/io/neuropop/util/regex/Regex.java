@@ -38,6 +38,21 @@ public final class Regex {
 	
 	/* literals */
 	
+	public static Expression ignoreCase(String str) {
+		Preconditions.checkNotEmpty(str);
+		
+		Expression x = null;
+		for (int i = 0; i < str.length(); ++i) {
+			char c = str.charAt(i);
+			Expression y = ch(Character.toUpperCase(c))
+					.or(ch(Character.toLowerCase(c)));
+			x = x == null
+					? y
+					: x.and(y);
+		}
+		return x;
+	}
+	
 	public static LiteralString str(String str) {
 		return new LiteralString(str);
 	}
