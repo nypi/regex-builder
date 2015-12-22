@@ -9,7 +9,7 @@ public class Capture extends LogicalExpression {
 	
 	public Capture(Expression x) {
 		Preconditions.checkNotNull(x);
-		
+
 		this.x = x;
 		this.name = null;
 	}

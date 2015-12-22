@@ -14,7 +14,7 @@ abstract class LogicalExpression implements Expression {
 		public And(Expression x, Expression y) {
 			Preconditions.checkNotNull(x);
 			Preconditions.checkNotNull(y);
-			
+
 			this.x = x;
 			this.y = y;
 		}
@@ -43,18 +43,18 @@ abstract class LogicalExpression implements Expression {
 		public Or(Expression x, Expression y) {
 			Preconditions.checkNotNull(x);
 			Preconditions.checkNotNull(y);
-			
+
 			this.x = x;
 			this.y = y;
 		}
 
 		@Override
 		public String regex() {
-			StringBuilder builder = new StringBuilder();
-			builder.append(x.regex());
-			builder.append("|");
-			builder.append(y.regex());
-			return builder.toString();
+			return new StringBuilder()
+					.append(x.regex())
+					.append("|")
+					.append(y.regex())
+					.toString();
 		}
 	}
 }

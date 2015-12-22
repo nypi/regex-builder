@@ -16,4 +16,22 @@ public class LiteralCharacter implements CharacterClass {
 	public String regex() {
 		return decl();
 	}
+
+	/* equality */
+
+	@Override
+	public int hashCode() {
+		return (int) c;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
+		if (!(other instanceof LiteralCharacter))
+			return false;
+
+		LiteralCharacter literalCharacter = (LiteralCharacter) other;
+		return c == literalCharacter.c;
+	}
 }

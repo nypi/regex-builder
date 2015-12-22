@@ -8,7 +8,7 @@ class CharacterClassAlias implements CharacterClass {
 	
 	protected CharacterClassAlias(String alias) {
 		Preconditions.checkNotEmpty(alias);
-		
+
 		this.alias = alias;
 	}
 	

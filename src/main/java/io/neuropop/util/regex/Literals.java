@@ -1,13 +1,13 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.text.Ascii;
-import io.neuropop.text.Hex;
-import io.neuropop.util.Preconditions;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import io.neuropop.text.Ascii;
+import io.neuropop.text.Hex;
+import io.neuropop.util.Preconditions;
 
 // protected
 final class Literals {
@@ -36,29 +36,28 @@ final class Literals {
 	private Literals() {
 	}
 	
-	public static void appendEscaped(StringBuilder builder, char c) {
+	private static void appendEscaped(StringBuilder builder, char c) {
 		Preconditions.checkNotNull(builder);
-		
+
 		String alias = ALIASES.get(c);
 		if (alias != null) {
 			builder.append(alias);
 			return;
 		}
-		if (Ascii.isAsciiCharacter(c) && 
-				!Ascii.isControlCharacter(c)) {
+		if (Ascii.isAsciiCharacter(c)
+				&& !Ascii.isControlCharacter(c)) {
 			if (METACHARACTERS.contains(c))
 				builder.append('\\');
 			builder.append(c);
 		} else {
 			byte b0 = (byte) (c >>> 8);
 			if (b0 != 0) {
-				builder.append("\\u");
-				Hex.appendHexByte(builder, b0);
+				builder.append("\\u").append(Hex.toHexString(b0));
 			} else {
 				builder.append("\\x");
 			}
 			byte b1 = (byte) (c & 0xff);
-			Hex.appendHexByte(builder, b1);
+			builder.append(Hex.toHexString(b1));
 		}
 	}
 	
@@ -69,8 +68,9 @@ final class Literals {
 	}
 	
 	public static String escape(String str) {
-		Preconditions.checkNotNull(str);
-		
+		if (str == null)
+			return null;
+
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < str.length(); ++i)
 			appendEscaped(builder, str.charAt(i));

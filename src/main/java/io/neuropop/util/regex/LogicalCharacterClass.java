@@ -5,15 +5,6 @@ import io.neuropop.util.Preconditions;
 // protected
 abstract class LogicalCharacterClass implements CharacterClass {
 	
-	@Override
-	public String regex() {
-		return new StringBuilder()
-				.append("[")
-				.append(decl())
-				.append("]")
-				.toString();
-	}
-	
 	/* Negation */
 	
 	static class Negation extends LogicalCharacterClass {
@@ -22,20 +13,16 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		public Negation(CharacterClass x) {
 			Preconditions.checkNotNull(x);
 			Preconditions.checkArgument(!(x instanceof LogicalCharacterClass));
-			
+
 			this.x = x;
 		}
 
 		@Override
 		public String decl() {
-			StringBuilder builder = new StringBuilder();
-			builder.append("^");
-			if (x instanceof LogicalCharacterClass
-					&& !(x instanceof Union))
-				builder.append("[").append(x.decl()).append("]");
-			else
-				builder.append(x.decl());
-			return builder.toString();
+			return new StringBuilder()
+					.append("^")
+					.append(x.decl())
+					.toString();
 		}
 
 		@Override
@@ -54,7 +41,7 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		public Union(CharacterClass x, CharacterClass y) {
 			Preconditions.checkNotNull(x);
 			Preconditions.checkNotNull(y);
-			
+
 			this.x = x;
 			this.y = y;
 		}
@@ -91,7 +78,7 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		public Intersection(CharacterClass x, CharacterClass y) {
 			Preconditions.checkNotNull(x);
 			Preconditions.checkNotNull(y);
-			
+
 			this.x = x;
 			this.y = y;
 		}

@@ -7,7 +7,7 @@ public class LiteralString implements Expression {
 	
 	public LiteralString(String str) {
 		Preconditions.checkNotEmpty(str);
-		
+
 		this.str = str;
 	}
 	

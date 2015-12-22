@@ -1,7 +1,5 @@
 package io.neuropop.text;
 
-import io.neuropop.util.Preconditions;
-
 public final class Hex {
 	private static final char[] HEX_ALPHABET = "0123456789abcdef".toCharArray();
 	
@@ -31,15 +29,19 @@ public final class Hex {
 			return null;
 		
 		StringBuilder builder = new StringBuilder(bytes.length << 1);
-		for (int i = 0; i < bytes.length; ++i)
-			appendHexByte(builder, bytes[i]);
+		for (int i = 0; i < bytes.length; ++i) {
+			byte b = bytes[i];
+			builder
+					.append(HEX_ALPHABET[(b >>> 4) & 0x0f])
+					.append(HEX_ALPHABET[b & 0x0f]);
+		}
 	    return builder.toString();
 	}
-	
-	public static void appendHexByte(StringBuilder builder, byte b) {
-		Preconditions.checkNotNull(builder);
-		
-		builder.append(HEX_ALPHABET[(b >>> 4) & 0x0f]);
-		builder.append(HEX_ALPHABET[b & 0x0f]);
+
+	public static String toHexString(byte b) {
+		return new String(new char[] {
+				HEX_ALPHABET[(b >>> 4) & 0x0f],
+				HEX_ALPHABET[b & 0x0f]
+		});
 	}
 }
