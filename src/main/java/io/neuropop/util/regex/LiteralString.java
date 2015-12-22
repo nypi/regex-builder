@@ -10,7 +10,14 @@ public class LiteralString implements Expression {
 
 		this.str = str;
 	}
-	
+
+	public LiteralString(char... characters) {
+		Preconditions.checkNotNull(characters);
+		Preconditions.checkArgument(characters.length > 0);
+
+		this.str = new String(characters);
+	}
+
 	@Override
 	public String regex() {
 		return Literals.escape(str);

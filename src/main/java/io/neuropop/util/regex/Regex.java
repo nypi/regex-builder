@@ -57,6 +57,10 @@ public final class Regex {
 		return new LiteralString(str);
 	}
 
+	public static LiteralString str(char... characters) {
+		return new LiteralString(characters);
+	}
+
 	public static LiteralCharacter ch(char c) {
 		return new LiteralCharacter(c);
 	}
