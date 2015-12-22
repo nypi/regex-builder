@@ -5,43 +5,44 @@ import java.util.regex.Pattern;
 public interface Expression {
 	String regex();
 	
-	default Pattern toPattern() {
-		return Pattern.compile(regex());
-	}
-	
-	default Pattern toPattern(String flags) {
-		int f = 0;
-		if (flags != null) {
-			for (int i = 0; i < flags.length(); ++i) {
-				char c = flags.charAt(i);
-				switch (c) {
-				case 'i':
-					f |= Pattern.CASE_INSENSITIVE;
-					break;
-				case 'd':
-					f |= Pattern.UNIX_LINES;
-					break;
-				case 'm':
-					f |= Pattern.MULTILINE;
-					break;
-				case 's':
-					f |= Pattern.DOTALL;
-					break;
-				case 'u':
-					f |= Pattern.UNICODE_CASE;
-					break;
-				case 'x':
-					f |= Pattern.COMMENTS;
-					break;
-				case 'U':
-					f |= Pattern.UNICODE_CHARACTER_CLASS;
-					break;
-				default:
-					throw new IllegalArgumentException("Invalid flag <" + c + ">");
+	default Pattern toPattern(RegexOption... options) {
+		int flags = 0;
+		if (options != null) {
+			for (RegexOption option : options) {
+				switch (option) {
+					case UNIX_LINES:
+						flags |= Pattern.UNIX_LINES;
+						break;
+					case CASE_INSENSITIVE:
+						flags |= Pattern.CASE_INSENSITIVE;
+						break;
+					case PERMIT_COMMENTS:
+						flags |= Pattern.COMMENTS;
+						break;
+					case MULTILINE:
+						flags |= Pattern.MULTILINE;
+						break;
+					case LITERAL_PARSING:
+						flags |= Pattern.LITERAL;
+						break;
+					case DOT_TERMINATORS:
+						flags |= Pattern.DOTALL;
+						break;
+					case UNICODE_CASE_FOLDING:
+						flags |= Pattern.UNICODE_CASE;
+						break;
+					case CANONICAL_EQUIVALENCE:
+						flags |= Pattern.CANON_EQ;
+						break;
+					case UNICODE_CLASSES:
+						flags |= Pattern.UNICODE_CHARACTER_CLASS;
+						break;
+					default:
+						throw new IllegalArgumentException("Option not supported <" + option + ">");
 				}
 			}
 		}
-		return Pattern.compile(regex(), f);
+		return Pattern.compile(regex(), flags);
 	}
 	
 	/* logical operators */
