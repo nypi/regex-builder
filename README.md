@@ -1,10 +1,14 @@
 # Java Regular Expression Builder
 
-Motivation behind this tool was keeping mind safe when implementing ABNF rules (from various RFC docs) for validating/parsing purposes in Java. It aims to allow to translate rules into Java expressions in a relaxed mode and obtain a valid regular expression pattern as a result.
+Tool for building regular expressions in Java.
 
-But I believe it can be used in some simple cases when you don't want to bring regex syntax into your Java code.
+Some benefits of using a regex builder instead of a plain regex:
 
-Available via the [JitPack build](https://jitpack.io/#nypi/regex-builder/-8a758d59a5-1).
+ - There is no need to remember details of the regex syntax (though, you still need to understand the semantics).
+ - You can get rid of 'programs inside programs', which is somehow annoying.
+ - With a builder it is harder to create a syntactically incorrect expression.
+
+Available via the [JitPack build](https://jitpack.io/#nypi/regex-builder/d8599b80c0).
 
 ```
 <repository>
@@ -17,13 +21,13 @@ Available via the [JitPack build](https://jitpack.io/#nypi/regex-builder/-8a758d
 <dependency>
 	<groupId>com.github.nypi</groupId>
 	<artifactId>regex-builder</artifactId>
-	<version>-8a758d59a5-1</version>
+	<version>d8599b80c0</version>
 </dependency>
 ```
 
 ## Usage Example
 
-For example, below is the rule set of the IPv6 mailbox address literal as defined in the [RFC 5321](https://tools.ietf.org/html/rfc5321).
+Below is a rule set of the IPv6 mailbox address literal as defined in [RFC 5321](https://tools.ietf.org/html/rfc5321).
 
 ```
 Snum = 1*3DIGIT
@@ -31,7 +35,7 @@ Snum = 1*3DIGIT
      ; value in the range 0 through 255.
 ```
 
-Simple ```1*3DIGIT``` rule definition allows some invalid numbers. To make it strict a little more complex expression will be used in the code.
+Simple ```1*3DIGIT``` definition allows some invalid numbers. Therefore, a little more complex expression will be used in the code.
 
 ```
 IPv4-address-literal = Snum 3("."  Snum)
@@ -51,7 +55,7 @@ IPv6v4-comp = [IPv6-hex *3(":" IPv6-hex)] "::"
 IPv6-addr = IPv6-full / IPv6-comp / IPv6v4-full / IPv6v4-comp
 ```
 
-And this part demonstrates how it can be translated into the Java regex pattern.
+This part is a corresponding Java code.
 
 ```java
 CharacterClass DIGIT = Regex.digit();
@@ -92,7 +96,7 @@ Expression ipv6Addr = ipv6Full
 		.or(ipv6v4Comp);
 ```
 
-Now `ipv6Addr.toPattern()` brings you this handy Java regex.
+Finally, `ipv6Addr.toPattern()` brings you this handy Java regex.
 
 ```
 [\dA-Fa-f]{1,4}(?:\:[\dA-Fa-f]{1,4}){7}|(?:[\dA-Fa-f]{1,4}
