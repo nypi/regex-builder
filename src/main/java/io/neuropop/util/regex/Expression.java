@@ -50,11 +50,27 @@ public interface Expression {
 	default Expression and(Expression y) {
 		return new LogicalExpression.And(this, y);
 	}
-	
+
+	default Expression and(char c) {
+		return and(new LiteralCharacter(c));
+	}
+
+	default Expression and(String str) {
+		return and(new LiteralString(str));
+	}
+
 	default Expression or(Expression y) {
 		return new LogicalExpression.Or(this, y);
 	}
-	
+
+	default Expression or(char c) {
+		return or(new LiteralCharacter(c));
+	}
+
+	default Expression or(String str) {
+		return or(new LiteralString(str));
+	}
+
 	/* quantifiers */
 	
 	default QuantifiedExpression anyTimes() {
@@ -65,7 +81,7 @@ public interface Expression {
 		return new QuantifiedExpression(this, 1);
 	}
 
-	default QuantifiedExpression atMostOnce() {
+	default QuantifiedExpression optional() {
 		return new QuantifiedExpression(this, 0, 1);
 	}
 	

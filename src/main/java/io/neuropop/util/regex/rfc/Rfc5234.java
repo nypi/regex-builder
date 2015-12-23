@@ -13,7 +13,7 @@ public final class Rfc5234 {
 			.union(Regex.range((char) 0x61, (char) 0x7a));
 
 	// "0" / "1"
-	public static CharacterClass BIT = Regex.anyCharacter('0', '1');
+	public static CharacterClass BIT = Regex.oneOf('0', '1');
 
 	// %x01-7F
 	//      ; any 7-bit US-ASCII character,

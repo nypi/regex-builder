@@ -61,53 +61,57 @@ public final class Regex {
 		return new LiteralString(characters);
 	}
 
+	/* character classes */
+
 	public static LiteralCharacter ch(char c) {
 		return new LiteralCharacter(c);
 	}
-	
+
 	public static LiteralCharacter tab() {
 		return ch((char) 0x09);
 	}
-	
+
 	public static LiteralCharacter newLine() {
 		return ch((char) 0x0a);
 	}
-	
+
 	public static LiteralCharacter carriageReturn() {
 		return ch((char) 0x0d);
 	}
-	
+
 	public static LiteralCharacter formFeed() {
 		return ch((char) 0x0c);
 	}
-	
+
 	public static LiteralCharacter alert() {
 		return ch((char) 0x07);
 	}
-	
+
 	public static LiteralCharacter escape() {
 		return ch((char) 0x1b);
 	}
-	
-	/* character classes */
-	
-	public static CharacterRange range(char min, char max) {
-		return new CharacterRange(min, max);
+
+	public static CharacterClass oneOf(CharacterClass... classes) {
+		return new CharacterClassSet(classes);
 	}
-	
-	public static CharacterClass anyCharacter(char... characters) {
+
+	public static CharacterClass oneOf(char... characters) {
 		return new CharacterClassSet(characters);
 	}
 
-	public static CharacterClass anyCharacter(String str) {
+	public static CharacterClass oneOf(String str) {
 		Preconditions.checkNotNull(str);
 		
 		return new CharacterClassSet(str.toCharArray());
 	}
-	
+
+	public static CharacterRange range(char min, char max) {
+		return new CharacterRange(min, max);
+	}
+
 	/* pre-defined character classes */
 	
-	public static CharacterClass anyCharacter() {
+	public static CharacterClass oneOf() {
 		return new CharacterClassAlias(".");
 	}
 	
