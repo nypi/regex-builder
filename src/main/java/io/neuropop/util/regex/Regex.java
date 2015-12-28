@@ -111,7 +111,7 @@ public final class Regex {
 
 	/* pre-defined character classes */
 	
-	public static CharacterClass oneOf() {
+	public static CharacterClass anyCharacter() {
 		return new CharacterClassAlias(".");
 	}
 	
