@@ -1,8 +1,8 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
+import java.util.Objects;
 
-// protected
+// package-private
 abstract class LogicalCharacterClass implements CharacterClass {
 	
 	/* Negation */
@@ -11,8 +11,9 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		private final CharacterClass x;
 		
 		public Negation(CharacterClass x) {
-			Preconditions.checkNotNull(x);
-			Preconditions.checkArgument(!(x instanceof LogicalCharacterClass));
+			Objects.requireNonNull(x);
+			if (x instanceof LogicalCharacterClass)
+				throw new IllegalArgumentException("Cannot negate a logical character class");
 
 			this.x = x;
 		}
@@ -39,8 +40,8 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		private final CharacterClass y;
 		
 		public Union(CharacterClass x, CharacterClass y) {
-			Preconditions.checkNotNull(x);
-			Preconditions.checkNotNull(y);
+			Objects.requireNonNull(x);
+			Objects.requireNonNull(y);
 
 			this.x = x;
 			this.y = y;
@@ -76,8 +77,8 @@ abstract class LogicalCharacterClass implements CharacterClass {
 		private final CharacterClass y;
 		
 		public Intersection(CharacterClass x, CharacterClass y) {
-			Preconditions.checkNotNull(x);
-			Preconditions.checkNotNull(y);
+			Objects.requireNonNull(x);
+			Objects.requireNonNull(y);
 
 			this.x = x;
 			this.y = y;

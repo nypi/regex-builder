@@ -1,8 +1,8 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
+import java.util.Objects;
 
-// protected
+// package-private
 abstract class LogicalExpression implements Expression {
 		
 	/* and */
@@ -12,8 +12,8 @@ abstract class LogicalExpression implements Expression {
 		private final Expression y;
 		
 		public And(Expression x, Expression y) {
-			Preconditions.checkNotNull(x);
-			Preconditions.checkNotNull(y);
+			Objects.requireNonNull(x);
+			Objects.requireNonNull(y);
 
 			this.x = x;
 			this.y = y;
@@ -41,8 +41,8 @@ abstract class LogicalExpression implements Expression {
 		private final Expression y;
 		
 		public Or(Expression x, Expression y) {
-			Preconditions.checkNotNull(x);
-			Preconditions.checkNotNull(y);
+			Objects.requireNonNull(x);
+			Objects.requireNonNull(y);
 
 			this.x = x;
 			this.y = y;

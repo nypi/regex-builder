@@ -1,14 +1,13 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
-
 public class CharacterRange implements CharacterClass {
 	private final char min;
 	private final char max;
 	
 	public CharacterRange(char min, char max) {
-		Preconditions.checkArgument(min <= max);
-		
+		if (max < min)
+			throw new IllegalArgumentException();
+
 		this.min = min;
 		this.max = max;
 	}

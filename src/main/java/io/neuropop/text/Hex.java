@@ -1,6 +1,6 @@
 package io.neuropop.text;
 
-public final class Hex {
+public class Hex {
 	private static final char[] HEX_ALPHABET = "0123456789abcdef".toCharArray();
 	
 	private Hex() {

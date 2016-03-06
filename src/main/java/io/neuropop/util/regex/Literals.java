@@ -3,14 +3,14 @@ package io.neuropop.util.regex;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import io.neuropop.text.Ascii;
 import io.neuropop.text.Hex;
-import io.neuropop.util.Preconditions;
 
-// protected
-final class Literals {
+// package-private
+class Literals {
 	private static final Set<Character> METACHARACTERS = newMetacharacters();
 	private static final Map<Character, String> ALIASES = newAliases(); 
 	
@@ -37,7 +37,7 @@ final class Literals {
 	}
 	
 	private static void appendEscaped(StringBuilder builder, char c) {
-		Preconditions.checkNotNull(builder);
+		Objects.requireNonNull(builder);
 
 		String alias = ALIASES.get(c);
 		if (alias != null) {

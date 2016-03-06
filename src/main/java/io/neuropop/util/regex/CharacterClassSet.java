@@ -1,16 +1,16 @@
 package io.neuropop.util.regex;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
-
-import io.neuropop.util.Preconditions;
 
 public class CharacterClassSet implements CharacterClass {
 	private final Set<CharacterClass> classes;
 	
 	public CharacterClassSet(char... characters) {
-		Preconditions.checkNotNull(characters);
-		Preconditions.checkArgument(characters.length > 0);
+		Objects.requireNonNull(characters);
+		if (characters.length == 0)
+			throw new IllegalArgumentException();
 
 		this.classes = new LinkedHashSet<>();
 		for (char c : characters)
@@ -18,8 +18,9 @@ public class CharacterClassSet implements CharacterClass {
 	}
 	
 	public CharacterClassSet(CharacterClass... classes) {
-		Preconditions.checkNotNull(classes);
-		Preconditions.checkArgument(classes.length > 0);
+		Objects.requireNonNull(classes);
+		if (classes.length == 0)
+			throw new IllegalArgumentException();
 
 		this.classes = new LinkedHashSet<>();
 		for (CharacterClass c : classes) {

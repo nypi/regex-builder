@@ -1,6 +1,6 @@
 package io.neuropop.text;
 
-public final class Ascii {
+public class Ascii {
 	public static final char NUL = 0;
 	public static final char SOH = 1;
 	public static final char STX = 2;

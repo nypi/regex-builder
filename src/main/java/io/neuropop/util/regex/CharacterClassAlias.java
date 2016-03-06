@@ -1,13 +1,12 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
-
-// protected
+// package-private
 class CharacterClassAlias implements CharacterClass {
 	private final String alias;
 	
 	protected CharacterClassAlias(String alias) {
-		Preconditions.checkNotEmpty(alias);
+		if (alias == null || alias.isEmpty())
+			throw new IllegalArgumentException();
 
 		this.alias = alias;
 	}

@@ -1,8 +1,8 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
+import java.util.Objects;
 
-public final class Regex {
+public class Regex {
 	private Regex() {
 	}
 	
@@ -13,9 +13,10 @@ public final class Regex {
 	}
 	
 	public static Expression and(Expression... expressions) {
-		Preconditions.checkNotNull(expressions);
-		Preconditions.checkArgument(expressions.length > 0);
-		
+		Objects.requireNonNull(expressions);
+		if (expressions.length == 0)
+			throw new IllegalArgumentException();
+
 		Expression x = expressions[0];
 		for (int i = 1; i < expressions.length; ++i)
 			x = x.and(expressions[i]);
@@ -27,9 +28,10 @@ public final class Regex {
 	}
 	
 	public static Expression or(Expression... expressions) {
-		Preconditions.checkNotNull(expressions);
-		Preconditions.checkArgument(expressions.length > 0);
-		
+		Objects.requireNonNull(expressions);
+		if (expressions.length == 0)
+			throw new IllegalArgumentException();
+
 		Expression x = expressions[0];
 		for (int i = 1; i < expressions.length; ++i)
 			x = x.or(expressions[i]);
@@ -39,8 +41,9 @@ public final class Regex {
 	/* literals */
 	
 	public static Expression ignoreCase(String str) {
-		Preconditions.checkNotEmpty(str);
-		
+		if (str == null || str.isEmpty())
+			throw new IllegalArgumentException();
+
 		Expression x = null;
 		for (int i = 0; i < str.length(); ++i) {
 			char c = str.charAt(i);
@@ -100,7 +103,7 @@ public final class Regex {
 	}
 
 	public static CharacterClass oneOf(String str) {
-		Preconditions.checkNotNull(str);
+		Objects.requireNonNull(str);
 		
 		return new CharacterClassSet(str.toCharArray());
 	}

@@ -1,6 +1,6 @@
 package io.neuropop.util.regex;
 
-import io.neuropop.util.Preconditions;
+import java.util.Objects;
 
 public class QuantifiedExpression extends LogicalExpression {
 	private final Expression x;
@@ -9,11 +9,11 @@ public class QuantifiedExpression extends LogicalExpression {
 	private final QuantificationMode mode;
 	
 	public QuantifiedExpression(Expression x, int min, int max, QuantificationMode mode) {
-		Preconditions.checkNotNull(x);
-		Preconditions.checkArgument(min >= 0);
-		Preconditions.checkArgument(max >= 1 && max >= min);
-		Preconditions.checkNotNull(mode);
-		
+		Objects.requireNonNull(x);
+		Objects.requireNonNull(mode);
+		if (min < 0 || max < 1 || max < min)
+			throw new IllegalArgumentException();
+
 		this.x = x;
 		this.min = min;
 		this.max = max;
